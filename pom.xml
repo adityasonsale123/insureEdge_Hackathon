@@ -44,34 +44,84 @@
 <!--</project>-->
 
 
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
-            <configuration>
-                <release>8</release>
-                <encoding>UTF-8</encoding>
-            </configuration>
-        </plugin>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.2.5</version>
-            <configuration>
-                <suiteXmlFiles>
-                    <suiteXmlFile>testng.xml</suiteXmlFile>
-                </suiteXmlFiles>
-                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                <systemPropertyVariables>
-                    <java.awt.headless>true</java.awt.headless>
-                    <user.language>en</user.language>
-                    <user.country>IN</user.country>
-                </systemPropertyVariables>
-                <argLine>-Dfile.encoding=UTF-8</argLine>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+    <groupId>insureEdge_Hackathon</groupId>
+    <artifactId>insureEdge_Hackathon</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>8</maven.compiler.release>
+        <selenium.version>4.39.0</selenium.version>
+        <testng.version>7.11.0</testng.version>
+        <logback.version>1.5.12</logback.version>
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Keep ONE logging backend; use logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <!-- Point to your suite at repo root -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- Ensure reports go where Jenkins looks -->
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+
+                    <!-- Useful on CI (no display) -->
+                    <systemPropertyVariables>
+                        <java.awt.headless>true</java.awt.headless>
+                        <user.language>en</user.language>
+                        <user.country>IN</user.country>
+                    </systemPropertyVariables>
+
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
