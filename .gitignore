@@ -1,0 +1,66 @@
+############################
+# Maven & Build Artifacts
+############################
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+############################
+# Logs & Reports
+############################
+*.log
+reports/
+allure-results/
+allure-report/
+test-output/
+screenshots/
+*.png
+
+############################
+# OS Files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# IDE Settings
+############################
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+############################
+# Java
+############################
+*.ser
+
+############################
+# Dependencies (should not commit)
+############################
+node_modules/
+
+############################
+# Environment & Secrets
+############################
+*.env
+*.env.*
+config.properties
+
+############################
+# Temporary Files
+############################
+*.tmp
+*.swp
+*.bak
+*.orig
