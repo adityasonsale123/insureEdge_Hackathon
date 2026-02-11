@@ -11,10 +11,8 @@ target/
 # Logs & Reports
 ############################
 *.log
-
 allure-results/
 allure-report/
-
 screenshots/
 *.png
 
@@ -56,6 +54,9 @@ node_modules/
 *.env
 *.env.*
 
+# IMPORTANT:
+# DO NOT ignore config.properties anymore.
+# DO NOT ignore src/test/resources.
 
 ############################
 # Temporary Files
