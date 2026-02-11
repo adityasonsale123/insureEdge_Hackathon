@@ -1,44 +1,77 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>insureEdge_Hackathon</groupId>
-    <artifactId>insureEdge_Hackathon</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+<!--<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">-->
+<!--    <modelVersion>4.0.0</modelVersion>-->
+<!--    <groupId>insureEdge_Hackathon</groupId>-->
+<!--    <artifactId>insureEdge_Hackathon</artifactId>-->
+<!--    <version>0.0.1-SNAPSHOT</version>-->
 
 
-    <dependencies>
+<!--    <dependencies>-->
 
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.39.0</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.11.0</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.selenium</groupId>-->
+<!--            <artifactId>selenium-java</artifactId>-->
+<!--            <version>4.39.0</version>-->
+<!--        </dependency>-->
 
 
-        <!-- If you're on SLF4J 2.x -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.16</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Or: Logback (classic + core) -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.12</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.testng</groupId>-->
+<!--            <artifactId>testng</artifactId>-->
+<!--            <version>7.11.0</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
 
-    </dependencies>
+<!--        &lt;!&ndash; If you're on SLF4J 2.x &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-simple</artifactId>-->
+<!--            <version>2.0.16</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
-</project>
+<!--        &lt;!&ndash; Or: Logback (classic + core) &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>1.5.12</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+
+<!--    </dependencies>-->
+
+<!--</project>-->
+
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+            <configuration>
+                <release>8</release>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.2.5</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>testng.xml</suiteXmlFile>
+                </suiteXmlFiles>
+                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                <systemPropertyVariables>
+                    <java.awt.headless>true</java.awt.headless>
+                    <user.language>en</user.language>
+                    <user.country>IN</user.country>
+                </systemPropertyVariables>
+                <argLine>-Dfile.encoding=UTF-8</argLine>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
