@@ -4,6 +4,7 @@
             <class name="com.insureedge.tests.AccessibilityCreateAccountFormTest"/>
             <class name="com.insureedge.tests.AdminDashboardAccessibilityTest"/>
             <class name="com.insureedge.tests.UserProfileAccessibilityTest"/>   <!-- NEW TEST -->
+            <class name="com.insureedge.tests.SanityTest"/>
         </classes>
     </test>
 </suite>
