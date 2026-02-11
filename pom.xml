@@ -76,7 +76,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Keep ONE logging backend; use logback -->
+        <!-- Keep ONE logging backend to avoid multiple SLF4J bindings -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -103,21 +103,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <!-- Point to your suite at repo root -->
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-
-                    <!-- Ensure reports go where Jenkins looks -->
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-
-                    <!-- Useful on CI (no display) -->
                     <systemPropertyVariables>
                         <java.awt.headless>true</java.awt.headless>
                         <user.language>en</user.language>
                         <user.country>IN</user.country>
                     </systemPropertyVariables>
-
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
