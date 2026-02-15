@@ -5,12 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-    public class FirstStory extends BaseUiTest {
+import java.time.Duration;
+
+public class FirstStory extends BaseUiTest {
 
         @Test
         public void verifyTitle() {
-            driver.get(getOrDefault("loginUrl", "https://qeaskillhub.cognizant.com/LoginPage?logout=true"));
-
+            driver.get("https://qeaskillhub.cognizant.com/LoginPage?logout=true");
+             // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             String expectedTitle = "InsurEdge";
             WebElement titleElement = driver.findElement(By.xpath("//span[normalize-space()='InsurEdge']"));
             String actualTitle = titleElement.getText();
@@ -24,7 +26,7 @@ import org.testng.annotations.Test;
 
         @Test
         public void verifyLogoVisibility() {
-            driver.get(getOrDefault("loginUrl", "https://qeaskillhub.cognizant.com/LoginPage?logout=true"));
+            driver.get("https://qeaskillhub.cognizant.com/LoginPage?logout=true");
 
             WebElement logo = driver.findElement(By.xpath("//span[text()='InsurEdge']"));
             System.out.println(logo.isDisplayed()
