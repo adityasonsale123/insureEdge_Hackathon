@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
-public class FirstStory extends BaseUiTest {
+public class US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation extends BaseUiTest {
 
         @Test
         public void verifyTitle() {

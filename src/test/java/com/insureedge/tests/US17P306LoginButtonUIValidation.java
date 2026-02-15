@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
-public class US17P306LoginButtonUIValidation {
+public class US17P306LoginButtonUIValidation extends BaseUiTest {
 
         WebDriver driver;
 
