@@ -1,4 +1,4 @@
-package com.testng.mainproject;
+package com.insureedge.tests.harish;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

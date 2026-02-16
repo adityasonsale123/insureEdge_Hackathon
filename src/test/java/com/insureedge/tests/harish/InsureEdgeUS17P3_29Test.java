@@ -1,4 +1,4 @@
-package com.insureedge.tests;
+package com.insureedge.tests.harish;
 
 import com.insureedge.tests.BaseUiTest;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.insureedge.tests;
+package com.insureedge.tests.harish;
 
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.By;
