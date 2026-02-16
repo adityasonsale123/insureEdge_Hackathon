@@ -1,6 +1,5 @@
 package com.insureedge.pages;
 
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -8,9 +7,9 @@ public class ApplicationStatusPage extends BasePage {
 
     public enum StatusCard {
         APPLIED(
-                By.id("ContentPlaceHolder_Admin_lblApplied"),               // COUNT <h6>
+                By.id("ContentPlaceHolder_Admin_lblApplied"),               // <h6> count element
                 By.xpath("//*[@id='ContentPlaceHolder_Admin_lblApplied']/ancestor::a[1]"),
-                "/AppliedList"   // expected target route
+                "/AppliedList"
         ),
         APPROVED(
                 By.id("ContentPlaceHolder_Admin_lblApproved"),
@@ -43,28 +42,38 @@ public class ApplicationStatusPage extends BasePage {
         super(driver, wait);
     }
 
+    /** Wait until all 4 cards' count elements are visible. */
     public void waitForLoaded() {
         for (StatusCard c : StatusCard.values()) {
             visible(c.countLocator);
         }
+        System.out.println("[PASS] Application Status cards visible.");
     }
 
+    /** Returns the resolved href of the card's anchor (empty string if absent). */
     public String getHref(StatusCard card) {
         WebElement link = visible(card.linkLocator);
-        String href = link.getAttribute("href");
+        String href = attr(link, "href");
         return href == null ? "" : href.trim();
     }
 
+    /** True if the card points to a real, navigable URL (not # or js:void). */
     public boolean isClickable(StatusCard card) {
         String href = getHref(card).toLowerCase();
         return !(href.isEmpty() || href.endsWith("#") || href.contains("javascript:void"));
     }
 
+    /** Clicks the card by clicking on its count element (which sits inside the anchor). */
     public void click(StatusCard card) {
-        click(card.countLocator); // clicking the count inside the anchor
+        click(card.countLocator);
     }
 
+    /** Parses the visible numeric text of a card's count. Throws if non-numeric. */
     public int getCount(StatusCard card) {
-        return parseInt(card.countLocator);
+        String t = visible(card.countLocator).getText().trim();
+        if (!t.matches("\\d+")) {
+            throw new AssertionError(card.name() + " count is not numeric: '" + t + "'");
+        }
+        return Integer.parseInt(t);
     }
 }
