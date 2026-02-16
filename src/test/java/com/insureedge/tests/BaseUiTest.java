@@ -20,7 +20,7 @@ public abstract class BaseUiTest {
     @BeforeClass
     public void baseSetup() {
         prop = ResourceBundle.getBundle("config");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(); 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
