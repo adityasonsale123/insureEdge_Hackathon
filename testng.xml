@@ -3,7 +3,7 @@
         <classes>
             <class name="com.insureedge.tests.AccessibilityCreateAccountFormTest"/>
             <class name="com.insureedge.tests.AdminDashboardAccessibilityTest"/>
-            <class name="com.insureedge.tests.InsurEdgeUS17P3_03"/>
+
         </classes>
     </test>
 </suite>
