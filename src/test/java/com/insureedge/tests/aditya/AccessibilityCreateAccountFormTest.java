@@ -1,4 +1,4 @@
-package com.insureedge.tests;
+package com.insureedge.tests.aditya;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;

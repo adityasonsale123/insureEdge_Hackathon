@@ -1,4 +1,4 @@
-package com.insureedge.tests;
+package com.insureedge.tests.aditya;
 
 import com.insureedge.base.BaseUiTest;
 import com.insureedge.pages.AdminDashboardPage;

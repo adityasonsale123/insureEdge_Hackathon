@@ -1,9 +1,9 @@
 <suite name="All Tests">
     <test name="UI Test Suite">
         <classes>
-            <class name="com.insureedge.tests.AccessibilityCreateAccountFormTest"/>
-            <class name="com.insureedge.tests.AdminDashboardAccessibilityTest"/>
-            <class name="com.insureedge.tests.InsurEdgeUS17P3_03"/>
+            <class name="com.insureedge.tests.aditya.AccessibilityCreateAccountFormTest"/>
+            <class name="com.insureedge.tests.aditya.AdminDashboardAccessibilityTest"/>
+            <class name="com.insureedge.tests.harish.InsurEdgeUS17P3_03"/>
         </classes>
     </test>
 </suite>
