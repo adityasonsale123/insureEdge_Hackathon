@@ -18,7 +18,7 @@ public class US17P3_17PrimaryFieldsNameEmailUIValidation extends BaseUiTest{
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.get("https://qeaskillhub.cognizant.com/LoginPage?logout=true");
-            Thread.sleep(2000);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         @AfterClass
