@@ -1,8 +1,8 @@
 package com.insureedge.tests;
 
+import com.insureedge.base.BaseUiTest;
 import com.insureedge.pages.AdminDashboardPage;
-import com.insureedge.pages.AdminDashboardPage.Card;
-import com.insureedge.tests.BaseUiTest;
+import com.insureedge.pages.AdminDashboardPage.Tile;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -20,37 +20,40 @@ public class AdminDashboardCardsTest extends BaseUiTest {
     }
 
     @Test(priority = 1)
-    public void countsShouldBeNumericAndNonNegative() {
-        for (Card c : Card.values()) {
+    public void countsAreNumericAndNonNegative() {
+        for (Tile c : Tile.values()) {
             int count = dashboard.getCount(c);
             Assert.assertTrue(count >= 0, c + " should be >= 0");
+            System.out.println("[PASS] " + c + " count OK: " + count);
         }
     }
 
     @Test(priority = 2)
-    public void clickableCardsNavigate_questionsDoesNot() {
-        // Clickable
-        for (Card c : new Card[]{Card.REGISTERED_USERS, Card.LISTED_POLICIES, Card.LISTED_CATEGORIES}) {
-            Assert.assertTrue(dashboard.isClickable(c), c + " must be clickable.");
+    public void clickableCardsNavigate_questionsDoesNot() throws InterruptedException {
+        // Clickable ones
+        for (Tile c : new Tile[]{Tile.REGISTERED_USERS, Tile.LISTED_POLICIES, Tile.LISTED_CATEGORIES}) {
+            Assert.assertTrue(dashboard.isClickable(c), c + " must be clickable");
             String before = driver.getCurrentUrl();
-            dashboard.clickCard(c);
-            // wait for URL to change
-            long start = System.currentTimeMillis();
-            while (driver.getCurrentUrl().equals(before) && System.currentTimeMillis() - start < 5000) {
-                try { Thread.sleep(100); } catch (InterruptedException ignored) {}
+            dashboard.clickTile(c);
+
+            long t0 = System.currentTimeMillis();
+            while (driver.getCurrentUrl().equals(before) && System.currentTimeMillis() - t0 < 5000) {
+                Thread.sleep(100);
             }
             String after = driver.getCurrentUrl();
-            Assert.assertTrue(after.contains(c.expectedRouteIfClickable),
-                    c + " should navigate to route " + c.expectedRouteIfClickable + " but got: " + after);
+            Assert.assertTrue(after.contains(c.expectedRoute),
+                    c + " should navigate to " + c.expectedRoute + " but got: " + after);
+            System.out.println("[PASS] " + c + " navigated to: " + after);
+
             driver.navigate().back();
             dashboard.waitForLoaded();
         }
 
         // Non-clickable
-        Assert.assertFalse(dashboard.isClickable(Card.TOTAL_QUESTIONS), "Total Questions must be non-clickable.");
+        Assert.assertFalse(dashboard.isClickable(Tile.TOTAL_QUESTIONS), "Total Questions must be non-clickable");
         String urlBefore = driver.getCurrentUrl();
-        dashboard.clickCard(Card.TOTAL_QUESTIONS); // safe: either no-op or just <h6> click
-        Assert.assertEquals(driver.getCurrentUrl(), urlBefore,
-                "Clicking Total Questions should not change URL.");
+        dashboard.clickTile(Tile.TOTAL_QUESTIONS);
+        Assert.assertEquals(driver.getCurrentUrl(), urlBefore, "Clicking Total Questions should not change URL.");
+        System.out.println("[PASS] Total Questions did not navigate.");
     }
 }
