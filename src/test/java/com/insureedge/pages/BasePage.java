@@ -23,6 +23,15 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    protected boolean present(By locator) {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
     protected void type(By locator, String text) {
         WebElement el = visible(locator);
         el.clear();
@@ -37,19 +46,16 @@ public abstract class BasePage {
         }
     }
 
-    protected String text(By locator) {
-        return visible(locator).getText().trim();
+    protected String attr(WebElement el, String name) {
+        String v = el.getAttribute(name);
+        return v == null ? "" : v.trim();
     }
 
-    protected int parseInt(By locator) {
-        String t = text(locator);
-        if (!t.matches("\\d+")) {
-            throw new AssertionError("Expected numeric text for " + locator + " but got: '" + t + "'");
-        }
-        return Integer.parseInt(t);
-    }
-
-    protected void jsFocus(WebElement el) {
+    protected void focusJS(WebElement el) {
         js.executeScript("arguments[0].scrollIntoView({block:'center'}); arguments[0].focus();", el);
+    }
+
+    protected WebElement active() {
+        return (WebElement) js.executeScript("return document.activeElement;");
     }
 }

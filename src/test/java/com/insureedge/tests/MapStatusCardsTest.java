@@ -1,61 +1,85 @@
 package com.insureedge.tests;
 
-import com.insureedge.pages.ApplicationStatusPage;
-import com.insureedge.pages.ApplicationStatusPage.StatusCard;
-import com.insureedge.tests.BaseUiTest;
+import com.insureedge.base.BaseUiTest;
+import com.insureedge.pages.AdminDashboardPage;
+import com.insureedge.pages.AdminDashboardPage.PolicyHolderCard;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import java.util.Locale;
 
 public class MapStatusCardsTest extends BaseUiTest {
 
-    private ApplicationStatusPage page;
+    private AdminDashboardPage page;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     @Override
     public void baseSetup() {
         super.baseSetup();
-        loginIfNeeded();                  // Reuse from BaseUiTest
-        page = new ApplicationStatusPage(driver, wait);
-        page.waitForLoaded();             // Wait for 4 cards to appear
+        loginIfNeeded(); // navigates to dashboard.url (AdminDashboard)
+        page = new AdminDashboardPage(driver, wait);
+        page.waitForLoaded();
     }
 
     @Test(priority = 1)
     public void countsShouldBeNumeric() {
-        for (StatusCard c : StatusCard.values()) {
+        for (PolicyHolderCard c : PolicyHolderCard.values()) {
             int count = page.getCount(c);
             Assert.assertTrue(count >= 0, c.name() + " count should be >= 0");
+            System.out.println("[PASS] " + c.name() + " count: " + count);
         }
     }
 
     @Test(priority = 2)
     public void eachCardHasNavigableHref() {
-        for (StatusCard c : StatusCard.values()) {
+        for (PolicyHolderCard c : PolicyHolderCard.values()) {
             String href = page.getHref(c);
-            Assert.assertTrue(page.isClickable(c), c.name() + " must have a navigable href but got: " + href);
-            Assert.assertTrue(href.contains(c.expectedRoute),
-                    c.name() + " href should contain route " + c.expectedRoute + " but got: " + href);
+            Assert.assertTrue(page.isClickable(c), c.name() + " must be clickable but got: " + href);
+
+            // Accept both .aspx and extension-less in href
+            String exp = c.expectedRoute.toLowerCase(Locale.ROOT);          // may or may not include .aspx
+            String hrefLc = href.toLowerCase(Locale.ROOT);
+            boolean hrefOk = hrefLc.contains(exp) || hrefLc.contains(exp + ".aspx");
+
+            Assert.assertTrue(hrefOk,
+                    c.name() + " href should contain route '" + c.expectedRoute + "' (or with .aspx) but got: " + href);
+
+            System.out.println("[PASS] " + c.name() + " href OK: " + href);
         }
     }
 
     @Test(priority = 3)
-    public void clickingEachCardNavigatesToCorrectListPage() {
-        for (StatusCard c : StatusCard.values()) {
+    public void clickingEachCardNavigatesToCorrectListPage() throws InterruptedException {
+        for (PolicyHolderCard c : PolicyHolderCard.values()) {
             String before = driver.getCurrentUrl();
-            page.click(c);
+            page.clickPolicyHolder(c);
 
-            // wait simple: poll URL change for up to ~5s
-            long start = System.currentTimeMillis();
-            while (driver.getCurrentUrl().equals(before) && System.currentTimeMillis() - start < 5000) {
-                try { Thread.sleep(100); } catch (InterruptedException ignored) {}
-            }
-
+            waitForUrlChange(before, 5000);
             String after = driver.getCurrentUrl();
-            Assert.assertTrue(after.contains(c.expectedRoute),
-                    c.name() + " should navigate to " + c.expectedRoute + " but got: " + after);
+
+            // Accept both forms after navigation: with .aspx or extension-less
+            String expectedWithExt = c.expectedRoute.toLowerCase(Locale.ROOT);
+            String expectedNoExt   = expectedWithExt.replace(".aspx", "");
+            String afterLc = after.toLowerCase(Locale.ROOT);
+
+            boolean matches = afterLc.contains(expectedWithExt) || afterLc.contains(expectedNoExt);
+
+            Assert.assertTrue(matches,
+                    c.name() + " should navigate to '" + c.expectedRoute +
+                            "' (or rewritten '" + expectedNoExt + "') but got: " + after);
+
+            System.out.println("[PASS] " + c.name() + " navigated to: " + after);
 
             driver.navigate().back();
             page.waitForLoaded();
+        }
+    }
+
+    // ---- tiny helper ----
+    private void waitForUrlChange(String oldUrl, long timeoutMs) throws InterruptedException {
+        long t0 = System.currentTimeMillis();
+        while (driver.getCurrentUrl().equals(oldUrl) && System.currentTimeMillis() - t0 < timeoutMs) {
+            Thread.sleep(100);
         }
     }
 }
