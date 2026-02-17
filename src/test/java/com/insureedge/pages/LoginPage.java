@@ -25,14 +25,7 @@ public class LoginPage extends BasePage {
         driver.get(url);
         System.out.println("[STEP] Opened URL: " + url);
         // tiny wait so fields are ready
-        try {
-            wait.until(ExpectedConditions.or(
-                    ExpectedConditions.visibilityOfElementLocated(username),
-                    ExpectedConditions.visibilityOfElementLocated(usernameAlt)
-            ));
-        } catch (TimeoutException ignored) {
-            // BaseUiTest typically calls login on a ready page; this is just best-effort
-        }
+
     }
 
     /** True if the username field (primary or fallback) is present in DOM. */
