@@ -32,7 +32,16 @@
         </classes>
     </test>
 
+    <test name="shubham's Test Suite">
+        <classes>
+
+            <class name="com.insureedge.tests.shubham.DashboardUiTests"> </class>
+            <class name="com.insureedge.tests.shubham.LoginUiTests"> </class>
+            <class name="com.insureedge.tests.shubham.RegistrationUiTests"> </class>
+
+        </classes>
 
 
+    </test>
 
 </suite>
