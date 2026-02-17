@@ -1,16 +1,13 @@
-package com.insureedge.tests;
+package com.insureedge.tests.sarbik;
 
-
+import com.insureedge.base.BaseUiTest;
+import com.insureedge.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
-public class InsureEdgeUS17P3_23Test {
-
-    private WebDriver driver;
+public class InsureEdgeUS17P3_23Test extends BaseUiTest {  // <-- extend BaseUiTest
 
     // === Global class-level WebElements (as requested) ===
     private WebElement submitButton;
@@ -24,10 +21,18 @@ public class InsureEdgeUS17P3_23Test {
     private WebElement checkbox;
     private WebElement checkboxError;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() throws InterruptedException {
-        driver = new ChromeDriver();
-        driver.get("https://qeaskillhub.cognizant.com/LoginPage?logout=true");
+        // baseSetup() from BaseUiTest runs first to init driver & wait.
+        baseSetup();
+
+        // Use config if present; otherwise default to the known login URL
+        String loginUrl = config.getProperty("login.url", "").trim();
+
+
+        // Open login page using your POM (no added waits)
+        new LoginPage(driver, wait).open(loginUrl);
+
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//a[text()='Create an account']")).click();
 
@@ -51,11 +56,10 @@ public class InsureEdgeUS17P3_23Test {
         passwordError = driver.findElement(By.xpath("//div[text()='Please enter your password!']"));
         checkbox = driver.findElement(By.xpath("//input[@class='form-check-input']"));
         checkboxError = driver.findElement(By.xpath("//div[text()='You must agree before submitting.']"));
-
     }
 
     @Test(priority = 1)
-    public void task1_nameFieldValidation() {
+    public void nameFieldValidation() {
         // Task 1: Name field validation
         submitButton.click();
         if (nameError.getText().equals("Please, enter your name!")) {
@@ -67,12 +71,11 @@ public class InsureEdgeUS17P3_23Test {
     }
 
     @Test(priority = 2)
-    public void task2_emailFieldValidation() {
+    public void emailFieldValidation() {
         // Task 2: Email field validation
 
         emailInput.sendKeys("invalidEmail");
         submitButton.click();
-
 
         if (emailError.getText().equals("Please enter a valid Email adddress!")) {
             System.out.println("Validated Invalid email specified");
@@ -83,7 +86,7 @@ public class InsureEdgeUS17P3_23Test {
     }
 
     @Test(priority = 3)
-    public void task3_usernameFieldValidation() {
+    public void usernameFieldValidation() {
         // Task 3: Username field validation
         usernameInput.clear();
         submitButton.click();
@@ -97,7 +100,7 @@ public class InsureEdgeUS17P3_23Test {
     }
 
     @Test(priority = 4)
-    public void task4_passwordFieldValidation() {
+    public void passwordFieldValidation() {
         // Task 4: Password field validation
 
         passwordInput.clear();
@@ -112,7 +115,7 @@ public class InsureEdgeUS17P3_23Test {
     }
 
     @Test(priority = 5)
-    public void task5_checkboxValidation() {
+    public void checkboxValidation() {
         // Task 5: Checkbox validation
         if (checkbox.isSelected()) {
             checkbox.click(); // uncheck the box if checked
@@ -127,7 +130,7 @@ public class InsureEdgeUS17P3_23Test {
     }
 
     @Test(priority = 6)
-    public void task6_captureColors() {
+    public void captureColors() {
         // Task 6
         // Using already filled elements; emailError & emailInput were set in Task 2
         String messageError = emailError.getCssValue("color");
@@ -138,7 +141,7 @@ public class InsureEdgeUS17P3_23Test {
     }
 
     @Test(priority = 7)
-    public void task7_errorPositionCheck() {
+    public void errorPositionCheck() {
         // Task 7
         int fieldY = usernameInput.getLocation().getY();
         int errorY = usernameError.getLocation().getY();
@@ -147,9 +150,5 @@ public class InsureEdgeUS17P3_23Test {
         }
     }
 
-    @AfterClass(alwaysRun = true)
-    public void closeBrowser() {
-        driver.quit();
-    }
+    // No @AfterClass — BaseUiTest.baseTeardown() handles driver.quit()
 }
-

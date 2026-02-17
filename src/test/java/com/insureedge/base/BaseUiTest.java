@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.Properties;
 
-public class BaseUiTest {
+public abstract class BaseUiTest { // <-- make abstract
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -19,6 +19,12 @@ public class BaseUiTest {
 
     @BeforeClass(alwaysRun = true)
     public void baseSetup() {
+        // Guard against accidental double-initialization
+        if (driver != null) {
+            System.out.println("[INFO] baseSetup() skipped: driver already initialized. Session reuse.");
+            return;
+        }
+
         loadConfig();
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -30,8 +36,13 @@ public class BaseUiTest {
     @AfterClass(alwaysRun = true)
     public void baseTeardown() {
         if (driver != null) {
-            driver.quit();
-            System.out.println("[PASS] Browser closed");
+            try {
+                driver.quit();
+                System.out.println("[PASS] Browser closed");
+            } finally {
+                driver = null;
+                wait = null;
+            }
         }
     }
 
@@ -45,8 +56,6 @@ public class BaseUiTest {
     }
 
     /** Optional helper if tests need you to be logged in. */
-    // BaseUiTest.java (minimal change)
-    // BaseUiTest.java  (minimal, drop-in)
     protected void loginIfNeeded() {
         String loginUrl     = config.getProperty("login.url", "").trim();
         String user         = config.getProperty("login.username", "").trim();
@@ -54,7 +63,7 @@ public class BaseUiTest {
         String dashboardUrl = config.getProperty("dashboard.url", "").trim();
 
         if (!loginUrl.isEmpty()) {
-            com.insureedge.pages.LoginPage lp = new com.insureedge.pages.LoginPage(driver, wait);
+            LoginPage lp = new LoginPage(driver, wait);
             lp.open(loginUrl);
             if (lp.isAt()) {
                 System.out.println("[STEP] On Login page. Attempting login...");
@@ -92,19 +101,17 @@ public class BaseUiTest {
             return;
         }
 
-        // If you prefer skip instead of fail, throw new SkipException(...) here
         throw new RuntimeException("Dashboard not reachable. Tried candidates; last URL: " + driver.getCurrentUrl());
     }
 
     private boolean isDashboardVisible() {
-        // Check one well-known counter
         return !driver.findElements(By.id("ContentPlaceHolder_Admin_lblRegisteredUsers")).isEmpty();
     }
 
     private boolean isIIS404() {
-        // IIS classic 404; adjust if your server shows different text
         String title = driver.getTitle();
         String src   = driver.getPageSource();
+        // Fix HTML escapes (&&)
         return (title != null && title.contains("404")) ||
                 (src != null && src.contains("404 - File or directory not found"));
     }

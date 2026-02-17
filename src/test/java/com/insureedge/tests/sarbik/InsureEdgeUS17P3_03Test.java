@@ -1,35 +1,33 @@
-package com.insureedge.tests;
+package com.insureedge.tests.sarbik;
 
-
+import com.insureedge.base.BaseUiTest;
+import com.insureedge.pages.LoginPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
 public class InsureEdgeUS17P3_03Test extends BaseUiTest {
 
-    WebDriver driver;
+    // Reuse BaseUiTest's driver; do NOT redeclare WebDriver driver here
     WebElement usernameField;
     WebElement label;
     WebElement prefix;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
-        // Bind to the WebDriver created in BaseUiTest
-        this.driver = super.driver;
+        // Initialize driver and wait via BaseUiTest
+        baseSetup();
 
-        // Reuse base login flow (reads config: loginUrl, adminUser, adminPass)
-        loginIfNeeded();
+        // Use config if present; otherwise default to the known login URL
+        String loginUrl = config.getProperty("login.url", "").trim();
 
-        // If you specifically want to ensure the login page is opened regardless of dashboardUrl,
-        // you can still navigate to it using the property. Keeping your original URL hardcode
-        // would bypass config, so we’ll honor config here:
-        String loginUrl = mustGet("loginUrl");
-        driver.get(loginUrl);
+
+        // Open login page using your POM (no added waits)
+        new LoginPage(driver, wait).open(loginUrl);
 
         driver.manage().window().maximize();
 
-        // Your original element initializations (unchanged)
+        // Your original element lookups (unchanged)
         usernameField = driver.findElement(By.xpath("//input[@id=\"txtUsername\"]"));
         label = driver.findElement(By.xpath("//label[text()='Username']"));
         prefix = driver.findElement(By.xpath("//span[@class='input-group-text']"));
@@ -93,10 +91,8 @@ public class InsureEdgeUS17P3_03Test extends BaseUiTest {
         //Assert.assertEquals(enteredText, "admin_user"); We can use Assert also instead of if-else
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void closeBrowser() {
-        // Let BaseUiTest handle driver quit.
-        // Keeping your method present to respect your structure; no action needed here.
+        baseTeardown();
     }
 }
-

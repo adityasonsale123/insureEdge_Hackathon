@@ -1,29 +1,31 @@
-package com.insureedge.tests;
+package com.insureedge.tests.sarbik;
 
+import com.insureedge.base.BaseUiTest;
+import com.insureedge.pages.LoginPage;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
-public class InsureEdgeUS17P3_08Test extends BaseUiTest {
+public class InsureEdgeUS17P3_08Test extends BaseUiTest {  // <-- extend BaseUiTest
 
-    WebDriver driver;
-    WebElement footer;
+    private WebElement footer;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
-        // Bind to the WebDriver initialized by BaseUiTest
-        this.driver = super.driver;
 
-        // Reuse base login flow (reads config: loginUrl, adminUser, adminPass, optional dashboardUrl)
-        loginIfNeeded();
+        baseSetup();
 
-        // Ensure we are on the login page as per your original behavior
-        String loginUrl = mustGet("loginUrl");
-        driver.get(loginUrl);
+        // Use config if present; otherwise default to the known login URL
+        String loginUrl = config.getProperty("login.url", "").trim();
+
+
+        // Open login page using your POM (no added waits)
+        new LoginPage(driver, wait).open(loginUrl);
 
         driver.manage().window().maximize();
+
+        // Initialize the footer element
         footer = driver.findElement(By.xpath("//div[@class='credits']"));
     }
 
@@ -38,7 +40,7 @@ public class InsureEdgeUS17P3_08Test extends BaseUiTest {
     // Task 2
     @Test
     public void verifyFooterNonClickable() {
-        System.out.println("Footer displayed: " +footer.isDisplayed() + ", enabled: " +footer.isEnabled());
+        System.out.println("Footer displayed: " + footer.isDisplayed() + ", enabled: " + footer.isEnabled());
         if (!footer.getTagName().equalsIgnoreCase("button")) {
             System.out.println("The footer is not clickable UI element");
         }
@@ -52,9 +54,5 @@ public class InsureEdgeUS17P3_08Test extends BaseUiTest {
         System.out.println("Footer text color: " + hexColor);
     }
 
-    @AfterClass
-    public void closeBrowser() {
-        // Let BaseUiTest handle driver quit.
-        // Intentionally left blank to avoid double-quit.
-    }
+    // No @AfterClass here — BaseUiTest.baseTeardown() handles browser quit
 }

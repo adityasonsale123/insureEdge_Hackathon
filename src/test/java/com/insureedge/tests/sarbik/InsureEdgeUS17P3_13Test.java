@@ -1,27 +1,38 @@
-package com.testng.mainproject;
+package com.insureedge.tests.sarbik;
 
+import com.insureedge.base.BaseUiTest;
+import com.insureedge.pages.LoginPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.Color;
 import org.testng.annotations.*;
 
-public class InsureEdgeUS17P3_13Test {
+public class InsureEdgeUS17P3_13Test extends BaseUiTest { // <-- extend BaseUiTest
 
-    private WebDriver driver;
     WebElement logo;
     WebElement text;
     WebElement createAccount;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.get("https://qeaskillhub.cognizant.com/LoginPage?logout=true");
-        driver.manage().window().maximize();
-        driver.findElement(By.xpath("//a[text()='Create an account']")).click();
 
-        logo = driver.findElement(By.xpath("//a[@class=\"logo d-flex align-items-center w-auto\"]//child::img"));
+        baseSetup();
+
+        // Use config if present; otherwise default to the known login URL
+        String loginUrl = config.getProperty("login.url", "").trim();
+
+
+        // Open login page using your POM (no added waits)
+        new LoginPage(driver, wait).open(loginUrl);
+
+        driver.manage().window().maximize();
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        // Go to Registration page
+       driver.findElement(By.xpath("//a[text()='Create an account']")).click();
+
+        // Initialize page elements used in tests
+        logo = driver.findElement(By.xpath("//a[@class='logo d-flex align-items-center w-auto']//child::img"));
         text = driver.findElement(By.xpath("//span[text()='NiceAdmin']"));
         createAccount = driver.findElement(By.xpath("//h5[text()='Create an Account']"));
     }
@@ -67,7 +78,7 @@ public class InsureEdgeUS17P3_13Test {
 
     @Test(priority = 5)
     public void task6_verifyHeaderColor() {
-        //Task 6;
+        // Task 6
         String[] headings = { "h1", "h2", "h3", "h4", "h5", "h6" };
         String tag = createAccount.getTagName().toLowerCase();
 
@@ -84,8 +95,5 @@ public class InsureEdgeUS17P3_13Test {
         }
     }
 
-    @AfterClass
-    public void closeBrowser() {
-        driver.quit();
-    }
+    // No @AfterClass — BaseUiTest.baseTeardown() handles driver.quit()
 }

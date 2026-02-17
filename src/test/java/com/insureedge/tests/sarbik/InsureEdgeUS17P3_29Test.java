@@ -1,35 +1,26 @@
-package com.insureedge.tests;
+package com.insureedge.tests.sarbik;
 
-import com.insureedge.tests.BaseUiTest;
+import com.insureedge.base.BaseUiTest;
 import java.util.List;
 
+import com.insureedge.pages.AdminDashboardPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class InsureEdgeUS17P3_29Test extends BaseUiTest {
 
-    WebDriver driver;
     List<WebElement> cards;
 
-    @BeforeClass
-    public void setUp() {
-        // Bind to the WebDriver managed by BaseUiTest
-        this.driver = super.driver;
-
-        // Perform login using BaseUiTest (reads from config.properties)
+    @BeforeClass(alwaysRun = true)
+    public void setUp() throws InterruptedException {
         loginIfNeeded();
+        AdminDashboardPage dashboard = new AdminDashboardPage(driver, wait);
+        dashboard.waitForLoaded();
 
-        String loginUrl = mustGet("loginUrl");
-        driver.get(loginUrl);
-
-        driver.manage().window().maximize();
-
-        // Locate all cards on the (post-login) dashboard page
+        // Locate all cards
         cards = driver.findElements(By.className("card-body"));
     }
 
@@ -79,8 +70,5 @@ public class InsureEdgeUS17P3_29Test extends BaseUiTest {
         }
     }
 
-    @AfterClass
-    public void closeBrowser() {
-        // Let BaseUiTest handle driver.quit() in its @AfterClass
-    }
+    // No @AfterClass — BaseUiTest.baseTeardown() handles driver.quit()
 }
