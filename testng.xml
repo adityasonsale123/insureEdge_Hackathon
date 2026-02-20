@@ -28,6 +28,7 @@
             <class name="com.insureedge.tests.sounak.US17P3_07"/>
             <class name="com.insureedge.tests.sounak.US17P3_13"/>
             <class name="com.insureedge.tests.sounak.US17P3_17"/>
+            <class name="com.insureedge.tests.sounak.US17P3_22"/>
             <class name="com.insureedge.tests.sounak.US17P3_30"/>
         </classes>
     </test>
