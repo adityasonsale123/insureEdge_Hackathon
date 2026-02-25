@@ -3,9 +3,13 @@ package com.insureedge.tests.harish;
 import com.insureedge.base.BaseUiTest;
 import com.insureedge.pages.LoginPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.io.File;
 
 public class US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation extends BaseUiTest {
 
@@ -33,6 +37,7 @@ public class US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation extends BaseUiTes
         }
     }
 
+
     @Test
     void testLogoVisibility() {
         WebElement logo = driver.findElement(By.xpath("//span[text()='InsurEdge']"));
@@ -42,5 +47,20 @@ public class US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation extends BaseUiTes
         } else {
             System.out.println("Logo is NOT visible on the page.");
         }
+
+
+
     }
+    /* @Test(priority = 3)
+    void screenshot()
+    {
+        TakesScreenshot ts=(TakesScreenshot) driver;
+        File source=ts.getScreenshotAs(OutputType.FILE);
+        File dest=new File("C:\\Project\\insureEdge_Hackathon\\screenshots\\fullpage.png");
+        source.renameTo(dest);
+
+
+    }*/
+
+
 }

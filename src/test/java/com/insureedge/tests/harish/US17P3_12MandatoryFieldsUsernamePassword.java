@@ -35,7 +35,7 @@ public class US17P3_12MandatoryFieldsUsernamePassword extends BaseUiTest {
         driver.findElement(By.id("BtnLogin")).click();
 
         String msg1 = wait
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("lblMessage")))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("lblMessage")))
                 .getText();
         System.out.println("Both empty → Message: " + msg1);
 
@@ -44,7 +44,7 @@ public class US17P3_12MandatoryFieldsUsernamePassword extends BaseUiTest {
         driver.findElement(By.id("BtnLogin")).click();
 
         String msg2 = wait
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("lblMessage")))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("lblMessage")))
                 .getText();
         System.out.println("Password only → Message: " + msg2);
 
@@ -56,7 +56,7 @@ public class US17P3_12MandatoryFieldsUsernamePassword extends BaseUiTest {
         driver.findElement(By.id("BtnLogin")).click();
 
         String msg3 = wait
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("lblMessage")))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("lblMessage")))
                 .getText();
         System.out.println("Username only → Message: " + msg3);
 
