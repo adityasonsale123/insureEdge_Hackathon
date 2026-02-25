@@ -44,4 +44,16 @@
 
     </test>
 
+    <test name="harish's Test Suite">
+        <classes>
+            <class name="com.insureedge.tests.harish.US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation"> </class>
+            <class name="com.insureedge.tests.harish.US17P3_12MandatoryFieldsUsernamePassword"> </class>
+            <class name="com.insureedge.tests.harish.US17P3_17PrimaryFieldsNameEmailUIValidation"> </class>
+            <class name="com.insureedge.tests.harish.US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2"> </class>
+            <class name="com.insureedge.tests.harish.US17P3_25_BreadcrumbValidation"> </class>
+            <class name="com.insureedge.tests.harish.US17P3_27PageSections_HeaderCardsFooter_UI_Validation"> </class>
+            <class name="com.insureedge.tests.harish.US17P306LoginButtonUIValidation"> </class>
+        </classes>
+    </test>
+
 </suite>

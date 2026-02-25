@@ -1,4 +1,4 @@
-package major_project;
+package com.insureedge.tests.sounak;
 
 import java.time.Duration;
 import java.util.Set;
