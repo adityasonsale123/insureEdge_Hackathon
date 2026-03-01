@@ -21,7 +21,7 @@ public class US17P3_17PrimaryFieldsNameEmailUIValidation extends BaseUiTest {
             driver.manage().window().maximize();
         }
 
-    @Test
+    @Test()
     public void testEnterNameAndEmailOnCreateAccount() throws Exception {
         // Click "Create an account" link
         WebElement createlink = driver.findElement(By.xpath("//a[text()='Create an account']"));

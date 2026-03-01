@@ -22,7 +22,7 @@ public class US17P3_12MandatoryFieldsUsernamePassword extends BaseUiTest {
         driver.manage().window().maximize();
     }
 
-    @Test
+    @Test(priority = 1)
     public void runOriginalScenariosWithBaseDriver() throws InterruptedException {
         // ---- Keep original variable names exactly the same ----
         WebDriver driver = this.driver; // reuse BaseUiTest's driver

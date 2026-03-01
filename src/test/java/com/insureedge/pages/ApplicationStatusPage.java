@@ -51,14 +51,14 @@ public class ApplicationStatusPage extends BasePage {
     }
 
     /** Returns the resolved href of the card's anchor (empty string if absent). */
-    public String getHref(StatusCard card) {
+   public String getHref(StatusCard card) {
         WebElement link = visible(card.linkLocator);
         String href = attr(link, "href");
         return href == null ? "" : href.trim();
     }
 
     /** True if the card points to a real, navigable URL (not # or js:void). */
-    public boolean isClickable(StatusCard card) {
+   /* public boolean isClickable(StatusCard card) {
         String href = getHref(card).toLowerCase();
         return !(href.isEmpty() || href.endsWith("#") || href.contains("javascript:void"));
     }
@@ -69,7 +69,7 @@ public class ApplicationStatusPage extends BasePage {
     }
 
     /** Parses the visible numeric text of a card's count. Throws if non-numeric. */
-    public int getCount(StatusCard card) {
+   public int getCount(StatusCard card) {
         String t = visible(card.countLocator).getText().trim();
         if (!t.matches("\\d+")) {
             throw new AssertionError(card.name() + " count is not numeric: '" + t + "'");

@@ -45,9 +45,11 @@ public class AdminDashboardPage extends BasePage {
     public void waitForLoaded() {
         try {
             // top 4
-            for (Tile t : Tile.values()) visible(t.count);
+            for (Tile t : Tile.values())
+                visible(t.count);
             // bottom 4
-            for (PolicyHolderCard c : PolicyHolderCard.values()) visible(c.count);
+            for (PolicyHolderCard c : PolicyHolderCard.values())
+                visible(c.count);
             System.out.println("[PASS] Admin Dashboard counters visible.");
         } catch (TimeoutException e) {
             System.out.println("[FAIL] Dashboard counters not visible. URL: " + driver.getCurrentUrl());
@@ -74,11 +76,11 @@ public class AdminDashboardPage extends BasePage {
         }
     }
 
-    public String getHref(Tile t) {
-        WebElement h6 = visible(t.count);
-        WebElement a = h6.findElement(By.xpath("./ancestor::a[1]"));
-        return attr(a, "href");
-    }
+      //public String getHref(Tile t) {
+        //WebElement h6 = visible(t.count);
+        //WebElement a = h6.findElement(By.xpath("./ancestor::a[1]"));
+        //return attr(a, "href");
+    //}
 
     public void clickTile(Tile t) {
         click(t.count);
