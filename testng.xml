@@ -1,60 +1,60 @@
-<suite name="All Tests">
 
-    <test name="aditya's Test Suite">
-        <classes>
-            <class name="com.insureedge.tests.aditya.AccessibilityCreateAccountFormTest"/>
-            <class name="com.insureedge.tests.aditya.AdminDashboardAccessibilityTest"/>
-            <class name="com.insureedge.tests.aditya.AdminDashboardCardsTest"/>
-            <class name="com.insureedge.tests.aditya.MapStatusCardsTest"/>
-        </classes>
-    </test>
+<suite name="All Tests" verbose="1" parallel="false">
 
-    <test name="sarbik's Test Suite">
-        <classes>
-            <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_03Test"/>
-            <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_08Test"/>
-            <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_13Test"/>
-            <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_18Test"/>
-            <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_29Test"/>
-            <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_23Test"/>
+  <test name="aditya's Test Suite">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.aditya.AccessibilityCreateAccountFormTest_US17P3_20"/>
+      <!-- If you kept the combined class, prefer the new name -->
+      <class name="com.insureedge.tests.aditya.AdminDashboardTest_US17P_26"/>
+      <class name="com.insureedge.tests.aditya.MapStatusCardsTest_US17P3_31"/>
+    </classes>
+  </test>
 
-        </classes>
-    </test>
+  <test name="sarbik's Test Suite">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_03Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_08Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_13Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_18Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_29Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_23Test"/>
+    </classes>
+  </test>
 
+  <test name="sounak's Test Suite">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.sounak.US17P3_02"/>
+      <class name="com.insureedge.tests.sounak.US17P3_07"/>
+      <class name="com.insureedge.tests.sounak.US17P3_13"/>
+      <class name="com.insureedge.tests.sounak.US17P3_17"/>
+      <class name="com.insureedge.tests.sounak.US17P3_22"/>
+      <class name="com.insureedge.tests.sounak.US17P3_30"/>
+    </classes>
+  </test>
 
-    <test name="sounak's Test Suite">
-        <classes>
-            <class name="com.insureedge.tests.sounak.US17P3_02"/>
-            <class name="com.insureedge.tests.sounak.US17P3_07"/>
-            <class name="com.insureedge.tests.sounak.US17P3_13"/>
-            <class name="com.insureedge.tests.sounak.US17P3_17"/>
-            <class name="com.insureedge.tests.sounak.US17P3_22"/>
-            <class name="com.insureedge.tests.sounak.US17P3_30"/>
-        </classes>
-    </test>
+  <test name="shubham's Test Suite">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.shubham.DashboardUiTests"/>
+      <class name="com.insureedge.tests.shubham.LoginUiTests"/>
+      <class name="com.insureedge.tests.shubham.RegistrationUiTests"/>
+    </classes>
+  </test>
 
-    <test name="shubham's Test Suite">
-        <classes>
-
-            <class name="com.insureedge.tests.shubham.DashboardUiTests"> </class>
-            <class name="com.insureedge.tests.shubham.LoginUiTests"> </class>
-            <class name="com.insureedge.tests.shubham.RegistrationUiTests"> </class>
-
-        </classes>
-
-
-    </test>
-
-    <test name="harish's Test Suite">
-        <classes>
-            <class name="com.insureedge.tests.harish.US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation"> </class>
-            <class name="com.insureedge.tests.harish.US17P3_12MandatoryFieldsUsernamePassword"> </class>
-            <class name="com.insureedge.tests.harish.US17P3_17PrimaryFieldsNameEmailUIValidation"> </class>
-            <class name="com.insureedge.tests.harish.US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2"> </class>
-            <class name="com.insureedge.tests.harish.US17P3_25_BreadcrumbValidation"> </class>
-            <class name="com.insureedge.tests.harish.US17P3_27PageSections_HeaderCardsFooter_UI_Validation"> </class>
-            <class name="com.insureedge.tests.harish.US17P306LoginButtonUIValidation"> </class>
-        </classes>
-    </test>
+  <test name="harish's Test Suite">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.harish.US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P3_12MandatoryFieldsUsernamePassword"/>
+      <class name="com.insureedge.tests.harish.US17P3_17PrimaryFieldsNameEmailUIValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2"/>
+      <class name="com.insureedge.tests.harish.US17P3_25_BreadcrumbValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_27PageSections_HeaderCardsFooter_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P306LoginButtonUIValidation"/>
+    </classes>
+  </test>
 
 </suite>

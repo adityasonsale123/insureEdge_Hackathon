@@ -16,7 +16,7 @@ public class InsureEdgeUS17P3_03Test extends BaseUiTest {
     @BeforeClass(alwaysRun = true)
     public void setUp() {
         // Initialize driver and wait via BaseUiTest
-        baseSetup();
+        setUp();
 
         // Use config if present; otherwise default to the known login URL
         String loginUrl = config.getProperty("login.url", "").trim();
@@ -93,6 +93,6 @@ public class InsureEdgeUS17P3_03Test extends BaseUiTest {
 
     @AfterClass(alwaysRun = true)
     public void closeBrowser() {
-        baseTeardown();
+        teardown();
     }
 }

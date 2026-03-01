@@ -20,7 +20,7 @@ public class US17P3_30 extends BaseUiTest {
         AdminDashboardPage dashboard = new AdminDashboardPage(driver, wait);
         dashboard.waitForLoaded();
 
-        dashboard.clickTile(AdminDashboardPage.Tile.REGISTERED_USERS);
+        dashboard.click(AdminDashboardPage.Tile.REGISTERED_USERS);
 
         String expected = "AdminViewCustomer";
         String actual = driver.getCurrentUrl();
@@ -37,7 +37,7 @@ public class US17P3_30 extends BaseUiTest {
         AdminDashboardPage dashboard = new AdminDashboardPage(driver, wait);
         dashboard.waitForLoaded();
 
-        dashboard.clickTile(AdminDashboardPage.Tile.LISTED_POLICIES);
+        dashboard.click(AdminDashboardPage.Tile.LISTED_POLICIES);
 
         String expected = "AdminViewPolicy";
         String actual = driver.getCurrentUrl();
@@ -54,7 +54,7 @@ public class US17P3_30 extends BaseUiTest {
         AdminDashboardPage dashboard = new AdminDashboardPage(driver, wait);
         dashboard.waitForLoaded();
 
-        dashboard.clickTile(AdminDashboardPage.Tile.LISTED_CATEGORIES);
+        dashboard.click(AdminDashboardPage.Tile.LISTED_CATEGORIES);
 
         String expected = "AdminCreateMainCategory";
         String actual = driver.getCurrentUrl();

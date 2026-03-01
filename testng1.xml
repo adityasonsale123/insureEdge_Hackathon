@@ -1,0 +1,172 @@
+
+<suite name="All Tests (Multi-Browser)" verbose="1" parallel="tests" thread-count="3">
+
+  <!-- Chrome run -->
+  <test name="aditya suite - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.aditya.AccessibilityCreateAccountFormTest_US17P3_20"/>
+      <class name="com.insureedge.tests.aditya.AdminDashboardTest_US17P_26"/>
+      <class name="com.insureedge.tests.aditya.MapStatusCardsTest_US17P3_31"/>
+    </classes>
+  </test>
+
+  <test name="sarbik suite - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_03Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_08Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_13Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_18Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_29Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_23Test"/>
+    </classes>
+  </test>
+
+  <test name="sounak suite - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.sounak.US17P3_02"/>
+      <class name="com.insureedge.tests.sounak.US17P3_07"/>
+      <class name="com.insureedge.tests.sounak.US17P3_13"/>
+      <class name="com.insureedge.tests.sounak.US17P3_17"/>
+      <class name="com.insureedge.tests.sounak.US17P3_22"/>
+      <class name="com.insureedge.tests.sounak.US17P3_30"/>
+    </classes>
+  </test>
+
+  <test name="shubham suite - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.shubham.DashboardUiTests"/>
+      <class name="com.insureedge.tests.shubham.LoginUiTests"/>
+      <class name="com.insureedge.tests.shubham.RegistrationUiTests"/>
+    </classes>
+  </test>
+
+  <test name="harish suite - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.insureedge.tests.harish.US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P3_12MandatoryFieldsUsernamePassword"/>
+      <class name="com.insureedge.tests.harish.US17P3_17PrimaryFieldsNameEmailUIValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2"/>
+      <class name="com.insureedge.tests.harish.US17P3_25_BreadcrumbValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_27PageSections_HeaderCardsFooter_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P306LoginButtonUIValidation"/>
+    </classes>
+  </test>
+
+  <!-- Firefox run (duplicate blocks with browser=firefox) -->
+  <test name="aditya suite - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.insureedge.tests.aditya.AccessibilityCreateAccountFormTest_US17P3_20"/>
+      <class name="com.insureedge.tests.aditya.AdminDashboardTest_US17P_26"/>
+      <class name="com.insureedge.tests.aditya.MapStatusCardsTest_US17P3_31"/>
+    </classes>
+  </test>
+
+  <test name="sarbik suite - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_03Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_08Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_13Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_18Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_29Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_23Test"/>
+    </classes>
+  </test>
+
+  <test name="sounak suite - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.insureedge.tests.sounak.US17P3_02"/>
+      <class name="com.insureedge.tests.sounak.US17P3_07"/>
+      <class name="com.insureedge.tests.sounak.US17P3_13"/>
+      <class name="com.insureedge.tests.sounak.US17P3_17"/>
+      <class name="com.insureedge.tests.sounak.US17P3_22"/>
+      <class name="com.insureedge.tests.sounak.US17P3_30"/>
+    </classes>
+  </test>
+
+  <test name="shubham suite - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.insureedge.tests.shubham.DashboardUiTests"/>
+      <class name="com.insureedge.tests.shubham.LoginUiTests"/>
+      <class name="com.insureedge.tests.shubham.RegistrationUiTests"/>
+    </classes>
+  </test>
+
+  <test name="harish suite - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.insureedge.tests.harish.US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P3_12MandatoryFieldsUsernamePassword"/>
+      <class name="com.insureedge.tests.harish.US17P3_17PrimaryFieldsNameEmailUIValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2"/>
+      <class name="com.insureedge.tests.harish.US17P3_25_BreadcrumbValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_27PageSections_HeaderCardsFooter_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P306LoginButtonUIValidation"/>
+    </classes>
+  </test>
+
+  <!-- Edge run -->
+  <test name="aditya suite - Edge">
+    <parameter name="browser" value="edge"/>
+    <classes>
+      <class name="com.insureedge.tests.aditya.AccessibilityCreateAccountFormTest_US17P3_20"/>
+      <class name="com.insureedge.tests.aditya.AdminDashboardTest_US17P_26"/>
+      <class name="com.insureedge.tests.aditya.MapStatusCardsTest_US17P3_31"/>
+    </classes>
+  </test>
+
+  <test name="sarbik suite - Edge">
+    <parameter name="browser" value="edge"/>
+    <classes>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_03Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_08Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_13Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_18Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_29Test"/>
+      <class name="com.insureedge.tests.sarbik.InsureEdgeUS17P3_23Test"/>
+    </classes>
+  </test>
+
+  <test name="sounak suite - Edge">
+    <parameter name="browser" value="edge"/>
+    <classes>
+      <class name="com.insureedge.tests.sounak.US17P3_02"/>
+      <class name="com.insureedge.tests.sounak.US17P3_07"/>
+      <class name="com.insureedge.tests.sounak.US17P3_13"/>
+      <class name="com.insureedge.tests.sounak.US17P3_17"/>
+      <class name="com.insureedge.tests.sounak.US17P3_22"/>
+      <class name="com.insureedge.tests.sounak.US17P3_30"/>
+    </classes>
+  </test>
+
+  <test name="shubham suite - Edge">
+    <parameter name="browser" value="edge"/>
+    <classes>
+      <class name="com.insureedge.tests.shubham.DashboardUiTests"/>
+      <class name="com.insureedge.tests.shubham.LoginUiTests"/>
+      <class name="com.insureedge.tests.shubham.RegistrationUiTests"/>
+    </classes>
+  </test>
+
+  <test name="harish suite - Edge">
+    <parameter name="browser" value="edge"/>
+    <classes>
+      <class name="com.insureedge.tests.harish.US17P3_01_InsurEdgeLogoTitleDisplay_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P3_12MandatoryFieldsUsernamePassword"/>
+      <class name="com.insureedge.tests.harish.US17P3_17PrimaryFieldsNameEmailUIValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2"/>
+      <class name="com.insureedge.tests.harish.US17P3_25_BreadcrumbValidation"/>
+      <class name="com.insureedge.tests.harish.US17P3_27PageSections_HeaderCardsFooter_UI_Validation"/>
+      <class name="com.insureedge.tests.harish.US17P306LoginButtonUIValidation"/>
+    </classes>
+  </test>
+
+</suite>

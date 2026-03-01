@@ -1,43 +1,44 @@
 package com.insureedge.tests.harish;
 
-import com.insureedge.base.BaseUiTest;
 import com.insureedge.pages.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class US17P306LoginButtonUIValidation extends BaseUiTest {
+import java.time.Duration;
 
-    @BeforeClass(alwaysRun = true)
-    public void setup() {
-        baseSetup();
-        String loginUrl=config.getProperty("login.url", "").trim();
+public class US17P306LoginButtonUIValidation {
 
-        new LoginPage(driver,wait).open(loginUrl);
-        driver.manage().window().maximize();
+    private WebDriver openLogin(String url) {
+        WebDriver d = new ChromeDriver();
+        d.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        d.manage().window().maximize();
+        new LoginPage(d, new org.openqa.selenium.support.ui.WebDriverWait(d, Duration.ofSeconds(10))).open(url);
+        return d;
     }
 
     @Test
     public void testLoginButtonText() {
-        WebElement loginBtn = driver.findElement(By.id("BtnLogin"));
-        String buttonText = loginBtn.getAttribute("value");
-
-        if (buttonText.equalsIgnoreCase("Login")) {
-            System.out.println("PASS → Button text is correct: " + buttonText);
-        } else {
-            System.out.println("FAIL → Expected 'Login' but found: " + buttonText);
+        WebDriver driver = openLogin("https://your-login-url-here");
+        try {
+            WebElement loginBtn = driver.findElement(By.id("BtnLogin"));
+            String text = loginBtn.getAttribute("value");
+            Assert.assertTrue(text != null && text.equalsIgnoreCase("Login"),
+                    "Expected 'Login' but found: " + text);
+        } finally {
+            driver.quit();
         }
     }
 
     @Test
     public void testLoginButtonEnabled() {
-        WebElement loginBtn = driver.findElement(By.id("BtnLogin"));
-
-        if (loginBtn.isEnabled()) {
-            System.out.println("PASS → Login button is clickable/enabled.");
-        } else {
-            System.out.println("FAIL → Login button is NOT enabled.");
+        WebDriver driver = openLogin("https://your-login-url-here");
+        try {
+            WebElement loginBtn = driver.findElement(By.id("BtnLogin"));
+            Assert.assertTrue(loginBtn.isEnabled(), "Login button should be enabled.");
+        } finally {
+            driver.quit();
         }
     }
 }

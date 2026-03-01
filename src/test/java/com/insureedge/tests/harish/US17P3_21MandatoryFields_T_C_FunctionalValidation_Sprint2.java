@@ -13,104 +13,77 @@ import java.time.Duration;
 
 public class US17P3_21MandatoryFields_T_C_FunctionalValidation_Sprint2 extends BaseUiTest {
 
-    // Keep the same variable names as in your original code
-    static CreateAccountPage c;
-    static JavascriptExecutor js;
+    private CreateAccountPage create;
+    private JavascriptExecutor js;
 
     @BeforeClass(alwaysRun = true)
-    public void setup() {
-        baseSetup();
-
-        // Open login via config (same as your original)
+    public void openCreateAccount() {
+        // BaseUiTest already launches browser and loads config.
+        // Just open login page and click "Create an account".
         String loginUrl = config.getProperty("login.url", "").trim();
         new LoginPage(driver, wait).open(loginUrl);
 
         driver.manage().window().maximize();
-        // If you want some implicit wait, keep it low to avoid masking issues
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 
-        // Navigate to "Create an account" using the link on Login page
+        // Go to Create Account
         driver.findElement(By.xpath("//a[normalize-space()='Create an account']")).click();
 
-        // Initialize page object + JS executor
-        c = new CreateAccountPage(driver, wait).waitForPage();
+        // Init page + js helper
+        create = new CreateAccountPage(driver, wait).waitForPage();
         js = (JavascriptExecutor) driver;
     }
 
     @Test(priority = 1)
-    public void test_NameIsEmpty() {
-        // Ensure we are on the page and fields are visible
-        c.waitForPage();
+    public void nameIsEmpty_shouldBlockSubmit() {
+        // Locate fields (using known IDs)
+        WebElement name        = driver.findElement(By.id("yourName"));
+        WebElement email       = driver.findElement(By.id("yourEmail"));
+        WebElement username    = driver.findElement(By.id("yourUsername"));
+        WebElement password    = driver.findElement(By.id("yourPassword"));
+        WebElement terms       = driver.findElement(By.id("acceptTerms"));
+        WebElement createBtn   = driver.findElement(By.cssSelector("button[type='submit']"));
 
-        // Use page getters for elements (no brittle finds)
-        WebElement nameField = c.nameField();
-        WebElement emailField = c.emailField();
-        WebElement usernameField = c.usernameField();
-        WebElement passwordField = c.passwordField();
-        WebElement termsCheck  = c.termsCheckbox();
-        WebElement createBtn   = c.createButton();
+        // --- Fill with NAME empty ---
+        name.clear(); // leave empty
+        email.clear();       email.sendKeys("valid@mail.com");
+        username.clear();    username.sendKeys("testuser");
+        password.clear();    password.sendKeys("Password123");
+        if (!terms.isSelected()) terms.click();
 
-        System.out.println("===== Test: Name is EMPTY =====");
-
-        // Steps
-        nameField.clear(); // leave empty
-        emailField.clear();
-        emailField.sendKeys("valid@mail.com");
-        usernameField.clear();
-        usernameField.sendKeys("testuser");
-        passwordField.clear();
-        passwordField.sendKeys("Password123");
-        if (!termsCheck.isSelected()) {
-            termsCheck.click();
-        }
-
-        js.executeScript("window.scrollBy(0, 400);");
+        js.executeScript("window.scrollBy(0, 300);");
         createBtn.click();
 
-        boolean nameValid = (Boolean) js.executeScript("return arguments[0].checkValidity();", nameField);
-
-        if (!nameValid) {
-            System.out.println("PASS → Create button blocked because NAME is empty.");
-        } else {
-            System.out.println("FAIL → Name empty but form allowed submission.");
-        }
+        boolean nameValid = (Boolean) js.executeScript("return arguments[0].checkValidity();", name);
+        assert !nameValid : "FAIL → Name was empty but form allowed submission.";
+        System.out.println("PASS → Create button blocked because NAME is empty.");
     }
 
     @Test(priority = 2)
-    public void test_EmailIsEmpty() {
-        // Refresh and wait for page
+    public void emailIsEmpty_shouldBlockSubmit() {
+        // Refresh to reset the form
         driver.navigate().refresh();
-        c.waitForPage();
+        create.waitForPage();
 
-        WebElement nameField = c.nameField();
-        WebElement emailField = c.emailField();
-        WebElement usernameField = c.usernameField();
-        WebElement passwordField = c.passwordField();
-        WebElement termsCheck  = c.termsCheckbox();
-        WebElement createBtn   = c.createButton();
+        WebElement name        = driver.findElement(By.id("yourName"));
+        WebElement email       = driver.findElement(By.id("yourEmail"));
+        WebElement username    = driver.findElement(By.id("yourUsername"));
+        WebElement password    = driver.findElement(By.id("yourPassword"));
+        WebElement terms       = driver.findElement(By.id("acceptTerms"));
+        WebElement createBtn   = driver.findElement(By.cssSelector("button[type='submit']"));
 
-        System.out.println("===== Test: Email is EMPTY =====");
+        // --- Fill with EMAIL empty ---
+        name.clear();       name.sendKeys("Harish");
+        email.clear();      // leave empty
+        username.clear();   username.sendKeys("testuser");
+        password.clear();   password.sendKeys("Password123");
+        if (!terms.isSelected()) terms.click();
 
-        nameField.clear();
-        nameField.sendKeys("Harish");
-        emailField.clear(); // leave empty
-        usernameField.clear();
-        usernameField.sendKeys("testuser");
-        passwordField.clear();
-        passwordField.sendKeys("Password123");
-        if (!termsCheck.isSelected()) {
-            termsCheck.click();
-        }
-
-        js.executeScript("window.scrollBy(0, 400);");
+        js.executeScript("window.scrollBy(0, 300);");
         createBtn.click();
 
-        boolean emailValid = (Boolean) js.executeScript("return arguments[0].checkValidity();", emailField);
-
-        if (!emailValid) {
-            System.out.println("PASS → Create button blocked because EMAIL is empty.");
-        } else {
-            System.out.println("FAIL → Email empty but form allowed submission.");
-        }
+        boolean emailValid = (Boolean) js.executeScript("return arguments[0].checkValidity();", email);
+        assert !emailValid : "FAIL → Email was empty but form allowed submission.";
+        System.out.println("PASS → Create button blocked because EMAIL is empty.");
     }
 }

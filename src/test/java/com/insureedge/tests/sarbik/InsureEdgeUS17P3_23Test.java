@@ -24,7 +24,7 @@ public class InsureEdgeUS17P3_23Test extends BaseUiTest {  // <-- extend BaseUiT
     @BeforeClass(alwaysRun = true)
     public void setUp() throws InterruptedException {
         // baseSetup() from BaseUiTest runs first to init driver & wait.
-        baseSetup();
+        setUp();
 
         // Use config if present; otherwise default to the known login URL
         String loginUrl = config.getProperty("login.url", "").trim();

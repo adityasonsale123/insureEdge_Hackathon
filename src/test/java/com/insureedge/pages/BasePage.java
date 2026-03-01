@@ -4,6 +4,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * Minimal base page: only what current pages/tests use.
+ */
 public abstract class BasePage {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
@@ -15,47 +18,35 @@ public abstract class BasePage {
         this.js = (JavascriptExecutor) driver;
     }
 
+    /** Wait until visible and return element. */
     protected WebElement visible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    protected WebElement clickable(By locator) {
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    protected boolean present(By locator) {
-        try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
-
+    /** Clear + type into a visible element. */
     protected void type(By locator, String text) {
         WebElement el = visible(locator);
         el.clear();
         el.sendKeys(text);
     }
 
+    /** Click with a small JS fallback. */
     protected void click(By locator) {
         try {
-            clickable(locator).click();
+            wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
         } catch (Exception e) {
             js.executeScript("arguments[0].click();", driver.findElement(locator));
         }
     }
 
+    /** Safe attribute read. */
     protected String attr(WebElement el, String name) {
         String v = el.getAttribute(name);
         return v == null ? "" : v.trim();
     }
 
-    protected void focusJS(WebElement el) {
-        js.executeScript("arguments[0].scrollIntoView({block:'center'}); arguments[0].focus();", el);
-    }
-
-    protected WebElement active() {
-        return (WebElement) js.executeScript("return document.activeElement;");
+    /** Scroll element into view (center). */
+    protected void scrollIntoView(WebElement el) {
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", el);
     }
 }

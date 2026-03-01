@@ -16,7 +16,7 @@ public class InsureEdgeUS17P3_13Test extends BaseUiTest { // <-- extend BaseUiTe
     @BeforeClass(alwaysRun = true)
     public void setUp() {
 
-        baseSetup();
+        setUp();
 
         // Use config if present; otherwise default to the known login URL
         String loginUrl = config.getProperty("login.url", "").trim();

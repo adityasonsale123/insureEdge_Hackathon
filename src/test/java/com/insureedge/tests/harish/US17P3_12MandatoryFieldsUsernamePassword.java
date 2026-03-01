@@ -15,7 +15,7 @@ public class US17P3_12MandatoryFieldsUsernamePassword extends BaseUiTest {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        baseSetup();
+        setup();
         String loginUrl=config.getProperty("login.url", "").trim();
 
         new LoginPage(driver,wait).open(loginUrl);
